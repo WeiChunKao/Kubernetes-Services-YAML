@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistenVolumeClaim
+metadata:
+   name: myclaim
+spec:
+   accessModes:
+      - ReadWriteOnce
+   resources:
+      requests:
+         storage: 5GB
+   storageClassName: nfs
+   selector:
+      matchLabels:
+         type: "nfs"

@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: err-probe-nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    livenessProbe:
+      httpGet:
+        path: /healthy         <=== 探測一個不存在的位置
+        port: 80
+      initialDelaySeconds: 3   <=== 容器啟動後 3 秒開始探測
+      periodSeconds: 3         <=== 探測間隔 3 秒
+    readinessProbe:
+      httpGet:
+        path: /healthy         <=== 探測一個不存在的位置
+        port: 80
+      initialDelaySeconds: 3
+      periodSeconds: 3

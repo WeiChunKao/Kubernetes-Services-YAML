@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+   name: data-nfsplugin
+spec:
+   accessModes:
+   - ReadWriteOnce
+   resources:
+      requests:
+         storage: 100MB
+      selector:
+         matchExpressions:
+            - key: name
+         operator: in
+         values: ["data-nfsplugin"]   

@@ -1,0 +1,35 @@
+1.允許讀取Pod資源
+  rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+	verbs: ["get", "list", "watch"]
+2.允許讀許extensions和apps中API資源組的deployment資源
+  rules:
+  - apiGroups: ["extensions", "apps"]
+    resources: ["deployments"]
+	verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+3.允許讀取ConfigMap:
+  rules:
+  - apiGroups: [""]
+    resources: ["configmaps"]
+	resourceNames: ["my-config"]
+	verbs: ["get"]
+4.允許對URL/healthz及其子路徑進行get/post操作(需使用ClusterRole和ClusterRoleBinding)
+  rules:
+  - nonResourceURLs: ["/healthz", "/healthz/*"]
+    verbs: ["get", "post"]
+5.對用戶授權
+  subjects:
+  - kind: User
+    name: "alice"
+	apiGroup: rbac.authorization.k8s.io
+6.對用戶組frontend-admins進行授權
+  subjects:
+  - kind: Group
+    name: "frontend-admins"
+	apiGroup: rbac.authorization.k8s.io
+7.對qa命名空間的所有Service Account進行授權
+  subjects:
+  - kind: Group
+    name: system:serviceaccounts:qa
+	apiGroup: rbac.authorization.k8s.io
